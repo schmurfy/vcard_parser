@@ -1,0 +1,21 @@
+BEGIN:VCARD
+VERSION:3.0
+PRODID:-//Apple Inc.//iOS 5.0.1//EN
+N:Durand;Christophe;;;
+FN:Christophe Durand
+ORG:Op;
+item1.TEL;type=pref:2 56 38 54
+item2.TEL;type=pref:5 66
+TEL;type=CELL;type=VOICE:3 55
+item2.ADR;type=HOME;type=pref:;;3 rue du chat;Dris;;90880;FRANCE
+BDAY;value=date:1900-01-01
+REV:2012-10-31T16:08:22Z
+UID:11
+END:VCARD
+END:VCARD
+BEGIN:VCARD
+VERSION:3.0
+N:Jean;René;;;
+FN:Jean René
+UID:12
+END:VCARD
