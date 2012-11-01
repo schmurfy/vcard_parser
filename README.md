@@ -24,7 +24,7 @@ puts cards[0]['N']
 puts cards[0].to_s
 ```
 
-# Setting up deve environmeent
+# Setting up development environmeent
 
 ```bash
 # clone the repository and:
