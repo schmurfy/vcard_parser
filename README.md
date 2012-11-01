@@ -7,6 +7,9 @@ This is a vCard parser/generator released under te MIT license
 For now only v3.0 is supported and the testing was done mostly with Apple
 Addressbook and iOS contacts.
 
+# Build status
+[![Build Status](https://secure.travis-ci.org/schmurfy/vcard_parser.png)](https://secure.travis-ci.org/schmurfy/vcard_parser.png)
+
 # Usage
 
 ```ruby
