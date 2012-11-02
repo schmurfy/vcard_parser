@@ -7,8 +7,11 @@ This is a vCard parser/generator released under te MIT license
 For now only v3.0 is supported and the testing was done mostly with Apple
 Addressbook and iOS contacts.
 
-# Build status
-[![Build Status](https://secure.travis-ci.org/schmurfy/vcard_parser.png)](https://secure.travis-ci.org/schmurfy/vcard_parser.png)
+# Continuous integration ([![Build Status](https://secure.travis-ci.org/schmurfy/vcard_parser.png)](https://secure.travis-ci.org/schmurfy/vcard_parser.png))
+
+This gem is tested against these ruby by travis-ci.org:
+
+- mri 1.9.3
 
 # Usage
 
