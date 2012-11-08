@@ -20,16 +20,19 @@ module VCardParser
     
     def self.parse(data)
       data.scan(VCARD_FORMAT).map do |vcard_data|
-        # fetch the version to choose the correct parser
+        # find the version to choose the correct parser
         lines = vcard_data[0].each_line.map(&:strip)
-                
-        key, version = lines[0].split(':')
-        if key != "VERSION"
-          raise MalformedInput, "VERSION expected, got #{key}"
+        
+        version_line_index = lines.index{|str| str.start_with?('VERSION:') }
+        
+        unless version_line_index
+          raise MalformedInput, "Unable to find VERSION field"
         end
         
-        # remove begin and version
-        lines.slice!(0, 1)
+        # remove version field
+        version_line = lines.delete_at(version_line_index)
+        
+        key, version = version_line.split(':')
         
         new(version).tap do |card|
           lines.each do |line|

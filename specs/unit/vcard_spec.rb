@@ -33,6 +33,27 @@ describe 'VCard' do
       vcards[0]["UID"].value.should == "11"
     end
     
+    should 'parse simple card with UID as first field' do
+      data = <<-EOS
+BEGIN:VCARD
+UID:20121108T134354Z-1348-27ECEFA3-2-53E3B7B2.vcf
+VERSION:3.0
+PRODID:-//SOGoSync 0.5.0//NONSGML SOGoSync AddressBook//EN
+FN:Pp, Tt
+N:Pp;Tt
+END:VCARD
+      EOS
+      
+      vcards = VCardParser::VCard.parse(data)
+      vcards.size.should == 1
+      
+      vcards[0].version.should == "3.0"
+      vcards[0]['PRODID'].value.should == '-//SOGoSync 0.5.0//NONSGML SOGoSync AddressBook//EN'
+      vcards[0]['UID'].value.should == '20121108T134354Z-1348-27ECEFA3-2-53E3B7B2.vcf'
+      vcards[0]['FN'].value.should == 'Pp, Tt'
+      vcards[0]['N'].value.should == 'Pp;Tt'
+    end
+    
     should 'parse multiple cards' do
       vcards = VCardParser::VCard.parse( data_file('two_vcard3.0.vcf') )
       vcards.size.should == 2
