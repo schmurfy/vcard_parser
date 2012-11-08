@@ -6,7 +6,7 @@ gem 'rake'
 
 group(:development) do
   gem 'simplecov'
-  gem 'guard-bacon',    '~> 1.1.0'
+  gem 'guard-bacon'
   gem 'rb-fsevent'
   gem 'growl'
 end
