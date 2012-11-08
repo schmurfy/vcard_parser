@@ -1,0 +1,4 @@
+
+# 0.0.2
+- VERSION can now be anywhere in the vCard (was required to be first)
+- When generating the vCard user can limit the fields exposed
