@@ -185,6 +185,20 @@ END:VCARD
       vcard.vcard.should == data
       vcard.to_s.should == data
     end
+    
+    should 'generate partial vCard' do
+      data = data_file('vcard3.0.vcf')
+      vcard = VCardParser::VCard.parse(data).first
+      vcard.vcard.should == data
+      vcard.to_s(%w(VERSION UID NICKNAME EMAIL FN)).should == <<-EOS
+BEGIN:VCARD
+VERSION:3.0
+FN:Christophe Durand
+UID:11
+END:VCARD
+      EOS
+    end
+    
   end
   
 end

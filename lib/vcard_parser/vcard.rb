@@ -66,11 +66,17 @@ module VCardParser
       @fields.each(&block)
     end
     
-    def vcard
-      ret = ["BEGIN:VCARD", "VERSION:#{@version}"]
+    def vcard(wanted_fields = [])
+      ret = ["BEGIN:VCARD"]
+      
+      if wanted_fields.empty? || wanted_fields.include?('VERSION')
+        ret << "VERSION:#{@version}"
+      end
       
       @fields.each do |f|
-        ret << f.to_s
+        if wanted_fields.empty? || wanted_fields.include?(f.name)
+          ret << f.to_s
+        end
       end
       
       ret << "END:VCARD\n"
