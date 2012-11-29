@@ -70,7 +70,13 @@ describe 'Field 3.0' do
     f = VCardParser::V30::Field.parse(line)
     f.to_s.should == line
   end
-
+  
+  should 'return an array of values' do
+    line = %{ORG:ABC, Inc.;North American Division;Marketing}
+    f = VCardParser::V30::Field.parse(line)
+    f.to_s.should == line
+    f.values.should == ["ABC, Inc.", "North American Division", "Marketing"]
+  end
 
   
 end

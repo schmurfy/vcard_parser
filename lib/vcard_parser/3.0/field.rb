@@ -27,6 +27,14 @@ module VCardParser
         ret
       end
       
+      def values
+        if value
+          value.split(';')
+        else
+          nil
+        end
+      end
+      
       def self.parse(line)
         m = FORMAT.match(line.strip)
         if m
