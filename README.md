@@ -18,7 +18,8 @@ This gem is tested against these ruby by travis-ci.org:
 ```ruby
 require 'vcard_parser'
 
-cards = VCardParser::parse(...)
+vcard = File.read('specs/data/vcard3.0.vcf')
+cards = VCardParser::VCard.parse(vcard)
 
 puts cards[0].fields
 puts cards[0]['N']
