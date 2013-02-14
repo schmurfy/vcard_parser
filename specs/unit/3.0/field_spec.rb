@@ -53,6 +53,16 @@ describe 'Field 3.0' do
     }
   end
   
+  should 'ignore parameters name case' do
+    f = VCardParser::V30::Field.parse("TEL;type=WORK;type=VOICE;Type=pref;tYPe=something:1234")
+    f.group.should == nil
+    f.name.should == "TEL"
+    f.value.should == "1234"
+    f.params.should == {
+      'type' => %w(WORK VOICE pref something)
+    }    
+  end
+  
   should 'generate vcf line from data' do
     line = "TEL;type=WORK;type=VOICE;type=pref:1234"
     f = VCardParser::V30::Field.parse(line)

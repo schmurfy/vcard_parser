@@ -42,6 +42,7 @@ module VCardParser
           if m[:params]
             m[:params].split(';').reject{|s| s.empty? }.each do |p|
               pname, pvalue = p.split('=')
+              pname.downcase!
               params[pname] ||= []
               params[pname] << pvalue
             end
