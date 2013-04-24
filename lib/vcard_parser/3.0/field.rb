@@ -72,6 +72,7 @@ module VCardParser
       def convert_value(value)
         case name
         when "REV", "BDAY"  then Time.parse(value)
+        when "NOTE"         then value.gsub('\r\n', "\n").gsub('\n', "\n")
         else
           value
         end
@@ -81,6 +82,7 @@ module VCardParser
         case name
         when "REV"    then value.iso8601
         when "BDAY"   then value.strftime("%Y-%m-%d")
+        when "NOTE"   then value.gsub("\n", '\n')
         else
           value
         end

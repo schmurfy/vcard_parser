@@ -11,6 +11,18 @@ describe 'Field 3.0' do
     f.full_name.should == "item1.TEL"
   end
   
+  should 'parse NOTE field (\n)' do
+    f = VCardParser::V30::Field.parse('NOTE:two\nlines\nand three')
+    f.name.should == "NOTE"
+    f.value.should == "two\nlines\nand three"
+  end
+  
+  should 'parse NOTE field (\r\n)' do
+    f = VCardParser::V30::Field.parse('NOTE:two\r\nlines\r\nand three')
+    f.name.should == "NOTE"
+    f.value.should == "two\nlines\nand three"
+  end
+  
   should 'parse empty field' do
     f = VCardParser::V30::Field.parse("FN:")
     f.group.should == nil
@@ -61,6 +73,11 @@ describe 'Field 3.0' do
     f.params.should == {
       'type' => %w(WORK VOICE pref something)
     }    
+  end
+  
+  should 'generate vcf line for NOTE' do
+    f = VCardParser::V30::Field.new('NOTE', "two\nlines\nand three")
+    f.to_s.should == 'NOTE:two\nlines\nand three'
   end
   
   should 'generate vcf line from data' do
