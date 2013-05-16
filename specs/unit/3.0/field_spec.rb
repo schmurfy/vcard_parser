@@ -47,6 +47,15 @@ describe 'Field 3.0' do
     f.params.should == {}
   end
   
+  # X-HomeState/Prov
+  should 'parse extension field with /' do
+    f = VCardParser::V30::Field.parse("X-HomeState/Prov:5 rue de la Roguenette")
+    f.group.should == nil
+    f.name.should == "X-HomeState/Prov"
+    f.value.should == "5 rue de la Roguenette"
+    f.params.should == {}
+  end
+  
   should 'parse simple line' do
     f = VCardParser::V30::Field.parse("PRODID:-//Apple Inc.//Mac OS X 10.8.2//EN")
     f.group.should == nil
