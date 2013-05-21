@@ -7,8 +7,8 @@ module VCardParser
       attr_reader :name, :group, :value, :params
       
       FORMAT = /^
-          (?:(?<group>[a-zA-Z0-9-]+)\.)?
-          (?<name>[a-zA-Z0-9-\/]+)
+          (?:(?<group>[a-zA-Z0-9\-]+)\.)?
+          (?<name>[a-zA-Z0-9\-\/]+)
           (?<params> (?:;[A-Za-z]+=[^;]+)+ )?
           :(?<value>.*)
         $/x
