@@ -71,7 +71,7 @@ END:VCARD
       vcards[1]["UID"].value.should == "12"
     end
     
-    should 'enumerate attributes' do
+    should 'enumerate attributes 1' do
       vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
       vcards.size.should == 1
       
@@ -81,10 +81,10 @@ END:VCARD
         attrs << a
       end
       
-      attrs.size.should == 11
+      attrs.size.should == 12
     end
     
-    should 'enumerate attributes' do
+    should 'enumerate attributes 2' do
       vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
       vcards.size.should == 1
       
@@ -94,74 +94,79 @@ END:VCARD
         attrs << a
       end
       
-      attrs[0].tap do |a|
+      n = -1
+      attrs[n+= 1].tap do |a|
         a.group.should == "item2"
         a.name.should == "ADR"
         a.value.should == ";;3 rue du chat;Dris;;90880;FRANCE"
         a.params.should == {'type' => ['HOME', 'pref']}
       end
       
-      attrs[1].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.name.should == "BDAY"
         a.value.should == Time.parse('1900-01-01')
         a.params.should == {'value' => ['date']}
       end
 
       
-      attrs[2].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.name.should == "FN"
         a.value.should == "Christophe Durand"
         a.params.should == {}
       end
       
-      attrs[3].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.name.should == "N"
         a.value.should == "Durand;Christophe;;;"
         a.params.should == {}
       end
       
-      attrs[4].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.name.should == "ORG"
         a.value.should == "Op;"
         a.params.should == {}
       end
-
       
-      attrs[5].tap do |a|
+      attrs[n+= 1].tap do |a|
+        a.name.should == "PHOTO"
+        a.value.should.include?("AAD/4gxYSUNDX1BST0ZJTEUAAQEAAAxITGlub")
+        a.params.should == {"encoding"=>["b"], "type"=>["JPEG"]}
+      end
+      
+      attrs[n+= 1].tap do |a|
         a.name.should == "PRODID"
         a.value.should == "-//Apple Inc.//iOS 5.0.1//EN"
         a.params.should == {}
       end
 
-      attrs[6].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.name.should == "REV"
         a.value.should == Time.parse("2012-10-31T16:08:22Z")
         a.params.should == {}
       end
       
-      attrs[7].tap do |a|
-        a.group.should == nil
-        a.name.should == "TEL"
-        a.value.should == "3 55"
-        a.params.should == {'type' => %w(CELL VOICE)}
-      end
-      
-      attrs[8].tap do |a|
+      attrs[n+= 1].tap do |a|
         a.group.should == "item1"
         a.name.should == "TEL"
         a.value.should == "2 56 38 54"
         a.params.should == {'type' => %w(pref)}
       end
-      
-      attrs[9].tap do |a|
+
+      attrs[n+= 1].tap do |a|
         a.group.should == "item2"
         a.name.should == "TEL"
         a.value.should == "5 66"
         a.params.should == {'type' => %w(pref)}
       end
 
+      attrs[n+= 1].tap do |a|
+        a.group.should == nil
+        a.name.should == "TEL"
+        a.value.should == "3 55"
+        a.params.should == {'type' => %w(CELL VOICE)}
+      end
 
-      attrs[10].tap do |a|
+      attrs[n+=1].tap do |a|
         a.name.should == "UID"
         a.value.should == "11"
         a.params.should == {}

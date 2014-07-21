@@ -19,6 +19,7 @@ module VCardParser
     end
     
     def self.parse(data)
+      data.gsub!(/\r?\n /, "") # inline base64 data to not break parser
       data.scan(VCARD_FORMAT).map do |vcard_data|
         # find the version to choose the correct parser
         lines = vcard_data[0].each_line.map(&:strip)
