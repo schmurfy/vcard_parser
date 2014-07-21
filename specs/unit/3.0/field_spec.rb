@@ -89,7 +89,7 @@ describe 'Field 3.0' do
     f.value.should == "1234"
     f.params.should == {
       'type' => %w(WORK VOICE pref something)
-    }    
+    }
   end
   
   should 'generate vcf line for NOTE' do
