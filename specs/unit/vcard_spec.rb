@@ -22,6 +22,13 @@ describe 'VCard' do
   end
   
   describe 'vCard 3.0' do
+    should 'handle blank lines' do
+      vcards = VCardParser::VCard.parse( data_file('malformed3.0.vcf') )
+      vcards.size.should == 1
+
+      vcards[0].version.should == "3.0"
+    end
+
     should 'parse simple card' do
       vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
       vcards.size.should == 1

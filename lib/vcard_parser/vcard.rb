@@ -36,7 +36,7 @@ module VCardParser
         key, version = version_line.split(':')
         
         new(version).tap do |card|
-          lines.each do |line|
+          lines.reject{|str| str.strip.empty? }.each do |line|
             card.add_field_from_string(line)
           end
         end
