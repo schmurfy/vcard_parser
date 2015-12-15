@@ -1,6 +1,14 @@
 require_relative '../../spec_helper'
 
 describe 'Field 3.0' do
+  should 'parse field' do
+    f = VCardParser::V30::Field.parse("item3.IMPP;X-SERVICE-TYPE=Jabber;type=pref:xmpp:Admin@localhost")
+    f.group.should == "item3"
+    f.name.should == "IMPP"
+    f.value.should == "Admin@localhost"
+    f.params.should == {'type' => ['pref:xmpp'], 'x-service-type' => ['Jabber']}
+  end
+  
   should 'parse grouped field' do
     f = VCardParser::V30::Field.parse("item1.TEL;type=pref:1 24 54 36")
     f.group.should == "item1"

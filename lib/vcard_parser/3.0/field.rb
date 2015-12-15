@@ -9,7 +9,7 @@ module VCardParser
       FORMAT = /^
           (?:(?<group>[a-zA-Z0-9\-]+)\.)?
           (?<name>[a-zA-Z0-9\-\/]+)
-          (?<params> (?:;[A-Za-z]+=[^;]+)+ )?
+          (?<params> (?:;[A-Za-z-]+=[^;]+)+ )?
           :(?<value>.*)
         $/x
       
