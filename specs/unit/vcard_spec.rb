@@ -78,6 +78,14 @@ END:VCARD
       vcards[1]["UID"].value.should == "12"
     end
     
+    should 'return firstname, lastname' do
+      vcards = VCardParser::VCard.parse( data_file('two_vcard3.0.vcf') )
+      vcards.size.should == 2
+      
+      vcards[0].firstname.should == "Christophe"
+      vcards[0].lastname.should == "Durand"
+    end
+    
     should 'enumerate attributes 1' do
       vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
       vcards.size.should == 1
@@ -89,6 +97,30 @@ END:VCARD
       end
       
       attrs.size.should == 12
+    end
+    
+    should 'list groups' do
+      vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
+      vcards.size.should == 1
+      
+      vcards[0].groups.to_a.should == %w(item1 item2)
+    end
+    
+    should 'return fields for given group' do
+      vcards = VCardParser::VCard.parse( data_file('vcard3.0.vcf') )
+      vcards.size.should == 1
+      
+      fields = vcards[0].get_fields_by_group('item2')
+      fields.size.should == 2
+      
+      fields['tel'].tap do |f|
+        f.name.should == "TEL"
+        f.value.should == "5 66"
+      end
+      
+      fields['adr'].tap do |f|
+        f.name.should == "ADR"
+      end
     end
     
     should 'enumerate attributes 2' do

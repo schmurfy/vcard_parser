@@ -5,7 +5,7 @@ module VCardParser
   MalformedInput = Class.new(ParsingError)
   
   class VCard
-    attr_reader :version, :fields
+    attr_reader :version, :fields, :groups
     
     VCARD_FORMAT = /
         BEGIN:VCARD\s+
@@ -16,6 +16,7 @@ module VCardParser
     def initialize(version, fields = [])
       @version = version
       @fields = fields
+      @groups = Set.new
     end
     
     def self.parse(data)
@@ -40,18 +41,28 @@ module VCardParser
             card.add_field_from_string(line)
           end
         end
-        
       end
     end
     
     def add_field_from_string(line)
       f = field_class.parse(line)
+      @groups << f.group if f.group
       @fields << f
     end
     
     def add_field(*args)
       f = field_class.new(*args)
+      @groups << f.group if f.group
       @fields << f
+    end
+    
+    def get_fields_by_group(name)
+      ret = {}
+      @fields.select{|f| f.group == name }.each do |f|
+        ret[f.name.downcase] = f
+      end
+      
+      ret
     end
     
     def values(key, group = nil)
@@ -59,6 +70,17 @@ module VCardParser
         (f.name == key) &&
         (!group || (f.group == group))
       end
+    end
+    
+    # retrieve first match and remove fields
+    def delete(key, group = nil)
+      @fields.each.with_index do |f, n|
+        if (f.name == key) && (!group || (f.group == group))
+          return @fields.delete_at(n)
+        end
+      end
+      
+      return nil
     end
     
     def [](key, group = nil)
@@ -88,6 +110,16 @@ module VCardParser
     end
     
     alias :to_s :vcard
+    
+    
+    
+    def lastname
+      self['N'].value.split(';')[0]
+    end
+    
+    def firstname
+      self['N'].value.split(';')[1]
+    end
   
   
   private
